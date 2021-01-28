@@ -1,48 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../../assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="../../assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
 	<div id="wrap">
 
-		<div id="header">
-			<h1>
-				<a href="">MySite</a>
-			</h1>
-
-			<ul>
-				<li><a href="">로그인</a></li>
-				<li><a href="">회원가입</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<!-- //header -->
-
-		<div id="nav">
-			<ul>
-				<li><a href="">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
 		<!-- //nav -->
 
-		<div id="aside">
-			<h2>방명록</h2>
-			<ul>
-				<li>일반방명록</li>
-				<li>ajax방명록</li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/include/aside_guest.jsp"></c:import>
 		<!-- //aside -->
 
 		<div id="content">
@@ -61,7 +37,7 @@
             <!-- //content-head -->
 
 			<div id="guestbook">
-				<form action="" method="">
+				<form action="${pageContext.request.contextPath}/guest/delete" method="get">
 					<table id="guestDelete">
 						<colgroup>
 							<col style="width: 10%;">
@@ -71,14 +47,18 @@
 						</colgroup>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" name="pass"></td>
+							<td><input type="password" name="password"></td>
 							<td class="text-left"><button type="submit">삭제</button></td>
-							<td><a href="/guestbook2/gbc">[메인으로 돌아가기]</a></td>
+							<td><a href="${pageContext.request.contextPath}/">[메인으로 돌아가기]</a></td>
 						</tr>
 					</table>
-					<input type='hidden' name="" value="">
-					<input type='hidden' name="" value="">
+					<input type='hidden' name="no" value="${param.no}">
 				</form>
+				
+				<br><br>
+				<c:if test="${param.result == 'fail'}">
+					<p>비밀번호가 틀렸습니다. 다시 입력해주세요.</p>
+				</c:if>
 				
 			</div>
 			<!-- //guestbook -->
@@ -86,9 +66,7 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 		
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 
 	</div>

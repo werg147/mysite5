@@ -20,9 +20,6 @@ public class UserController {
 
 	//필드
 	@Autowired
-	private UserDao userDao;
-	
-	@Autowired
 	private UserService userService;
 	
 	
