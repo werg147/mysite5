@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.dao.UserDao;
+import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
 
 @Controller
@@ -20,6 +21,9 @@ public class UserController {
 	//필드
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private UserService userService;
 	
 	
 	//회원가입 폼
@@ -36,8 +40,8 @@ public class UserController {
 		System.out.println("/user/join");
 		System.out.println(userVo.toString());
 		
-		int count = userDao.insert(userVo);
-		System.out.println("userController count:" + count);
+		int count = userService.join(userVo);
+		System.out.println(count);
 		
 		return "user/joinOk";
 	}
@@ -56,7 +60,7 @@ public class UserController {
 		System.out.println("/user/login");
 		//System.out.println(userVo.toString());
 		
-		UserVo authUser = userDao.selectUser(userVo);
+		UserVo authUser = userService.login(userVo);
 		
 		if(authUser == null) {
 			//실패시
@@ -86,11 +90,13 @@ public class UserController {
 		System.out.println("/user/modifyForm");
 		
 		//1명 정보 가져오기 - 세션영역의 no로
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		int no = authUser.getNo();
-
-		UserVo userVo = userDao.getUser(no);
-		//System.out.println("유저정보" + userVo.toString());
+		int no = ((UserVo)session.getAttribute("authUser")).getNo();
+		//UserVo authUser = (UserVo)session.getAttribute("authUser");
+		//int no = authUser.getNo();
+		
+		//세션값이 없으면 -> 로그인 폼
+		
+		UserVo userVo = userService.modifyForm(no);
 		
 		//모델에 데이터 담기
 		model.addAttribute("userVo", userVo);
@@ -100,21 +106,22 @@ public class UserController {
 	
 	//수정하기
 	@RequestMapping(value = "/update", method= {RequestMethod.GET, RequestMethod.POST})
-	public String update(HttpSession session, @RequestParam("password") String password,
-								              @RequestParam("name") String name,
-								              @RequestParam("gender") String gender) {
+	public String update(HttpSession session, @ModelAttribute UserVo userVo) {
 		System.out.println("/usre/update");
         //System.out.println(userVo.toString());
 		
 		//세션 no꺼내기
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		int no = authUser.getNo();
-		UserVo userVo = new UserVo(no, password, name, gender);
 		
-		userDao.update(userVo);
+		//vo에 no담기
+		userVo.setNo(no);
+		
+		//정보 수정
+		int count = userService.update(userVo);
 		
 		//세션 name 업데이트
-		authUser.setName(name);
+		authUser.setName(userVo.getName());
 		
 		return "redirect:/";
 	}

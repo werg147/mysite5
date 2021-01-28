@@ -42,10 +42,10 @@ public class UserDao {
 	}
 	
 	//정보 수정
-	public void update(UserVo userVo) {
+	public int update(UserVo userVo) {
 		System.out.println("Dao update" + userVo);
 	
-		sqlSession.update("user.update", userVo);
+		return sqlSession.update("user.update", userVo);
 
 	}
 	
