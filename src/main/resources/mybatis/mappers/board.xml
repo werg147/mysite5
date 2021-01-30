@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<!-- 게시판 리스트 -->
+	<select id="selectList" resultType="BoardVo">
+		<![CDATA[
+			select bo.no,
+                   bo.title,
+                   us.name,
+                   bo.hit,
+                   to_char(bo.reg_date, 'YYYY-MM-DD') regDate,
+                   bo.user_no userNo
+            from board bo, users us
+            where bo.user_no = us.no
+            order by bo.no desc
+		]]>
+	</select>
+
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete board
+            where no = #{no}
+		]]>
+	</delete>
+	
+	<!-- 게시글 읽기 -->
+	<select id="selectOne" parameterType="int" resultType="BoardVo">
+		<![CDATA[
+			select bo.no,
+			       us.name,
+                   bo.hit,
+                   to_char(bo.reg_date, 'YYYY-MM-DD') regDate,
+                   bo.title,
+                   bo.content,
+                   bo.user_no userNo
+            from board bo, users us
+            where bo.user_no = us.no
+            and bo.no = #{no}
+		]]>
+	</select>
+	
+	<!-- 게시글 등록 -->
+	<insert id="insert" parameterType="BoardVo">
+		<![CDATA[
+			insert into board
+            values(
+                   seq_no.nextval,
+                   #{title},
+                   #{content},
+                   0,
+                   sysdate,
+                   #{userNo}
+                  )
+		]]>
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="BoardVo">
+		<![CDATA[
+			update board
+            set title = #{title},
+                content = #{content}
+            where no = #{no}
+		]]>
+	</update>
+	
+
+</mapper>

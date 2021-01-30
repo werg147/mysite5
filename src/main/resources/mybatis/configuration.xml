@@ -2,11 +2,14 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <typeAliases>
-    </typeAliases>
 
-    <mappers>
-        <mapper resource="mybatis/mappers/user.xml" />
-        <mapper resource="mybatis/mappers/guest.xml" />
-    </mappers>
+	<typeAliases>
+		<typeAlias alias="BoardVo" type="com.javaex.vo.BoardVo" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mybatis/mappers/user.xml" />
+		<mapper resource="mybatis/mappers/guest.xml" />
+		<mapper resource="mybatis/mappers/board.xml" />
+	</mappers>
 </configuration>
