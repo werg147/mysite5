@@ -39,9 +39,9 @@
 
 			<div id="board">
 				<div id="list">
-					<form action="" method="">
+					<form action="search" method="get">
 						<div class="form-group text-right">
-							<input type="text">
+							<input type="text" name="key">
 							<button type="submit" id=btn_search>검색</button>
 						</div>
 					</form>

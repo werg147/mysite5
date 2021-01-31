@@ -26,7 +26,7 @@
 		]]>
 	</delete>
 	
-	<!-- 게시글 읽기 -->
+	<!-- 게시글 읽기/수정폼 -->
 	<select id="selectOne" parameterType="int" resultType="BoardVo">
 		<![CDATA[
 			select bo.no,
@@ -63,6 +63,15 @@
 			update board
             set title = #{title},
                 content = #{content}
+            where no = #{no}
+		]]>
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="hitCount" parameterType="int">
+		<![CDATA[
+			update board
+            set hit = hit + 1
             where no = #{no}
 		]]>
 	</update>

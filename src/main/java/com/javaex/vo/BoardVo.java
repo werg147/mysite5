@@ -12,6 +12,7 @@ public class BoardVo {
 	// users
 	private String name;
 
+
 	public BoardVo() {
 	}
 

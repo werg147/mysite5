@@ -32,6 +32,9 @@ public class BoardService {
 	public BoardVo getRead(int no) {
 		System.out.println("[service] getRead()");
 		
+		int count = boardDao.hitCount(no);
+		System.out.println(count);
+		
 		return boardDao.selectOne(no);	
 	}
 	

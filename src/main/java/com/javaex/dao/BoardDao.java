@@ -49,4 +49,11 @@ public class BoardDao {
 		return sqlSession.update("board.update", boardVo);
 	}
 	
+	//조회수 증가
+	public int hitCount(int no) {
+		System.out.println("[service] hitCount()");
+
+		return sqlSession.update("board.hitCount", no);
+	}
+	
 }
