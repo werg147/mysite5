@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rboard">
+
+	<select id="selectRList" resultType="com.javaex.vo.RboardVo">
+		<![CDATA[
+			select rb.no,
+                   rb.user_no userNo,
+                   us.name,
+                   rb.title,
+                   rb.content,
+                   rb.hit,
+                   rb.reg_date regDate,
+                   rb.group_no groupNo,
+                   rb.order_no orderNo,
+                   depth
+            from rboard rb, users us
+            where rb.user_no = us.no
+            order by rb.no desc
+		]]>
+	</select>
+	
+
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.RboardVo">
+		<![CDATA[
+			select rb.no,
+			       us.name,
+                   rb.hit,
+                   reg_date regDate,
+                   rb.title,
+                   rb.content,
+                   rb.user_no userNo,
+                   rb.group_no groupNo,
+                   rb.order_no orderNo,
+                   depth
+            from rboard rb, users us
+            where rb.user_no = us.no
+            and rb.no = #{no}
+		]]>
+	</select>
+	
+	<update id="hitCount" parameterType="int">
+		<![CDATA[
+			update rboard
+            set hit = hit + 1
+            where no = #{no}
+		]]>
+	</update>
+	
+	
+
+
+</mapper>
