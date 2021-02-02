@@ -60,7 +60,7 @@
 							<c:forEach items="${rboardList}" var="rboardVo">
 								<tr>
 									<td>${rboardVo.no}</td>
-									<td class="text-left"><a href="${pageContext.request.contextPath}/board/read/${rboardVo.no}">${rboardVo.title}</a></td>
+									<td class="text-left"><a href="${pageContext.request.contextPath}/rboard/read/${rboardVo.no}">${rboardVo.title}</a></td>
 									<td>${rboardVo.name}</td>
 									<td>${rboardVo.hit}</td>
 									<td>${rboardVo.regDate}</td>

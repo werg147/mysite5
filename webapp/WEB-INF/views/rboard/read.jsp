@@ -73,7 +73,7 @@
 							<a id="btn_modify" href="${pageContext.request.contextPath}/board/modifyForm/${rboardVo.no}">수정</a>
 						</c:if>
 						
-						<a id="btn_modify" href="${pageContext.request.contextPath}/board/list">목록</a>
+						<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/list">목록</a>
 						
 					</form>
 	                <!-- //form -->
@@ -84,6 +84,9 @@
 		</div>
 		<!-- //content  -->
 		<div class="clear"></div>
+		
+		<input type="text" name="groupNo" value="${rboardVo.groupNo}"><br>
+		<input type="text" name="gorderNo" value="${rboardVo.orderNo}"><br>
 
 		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
