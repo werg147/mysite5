@@ -49,5 +49,11 @@ public class UserDao {
 
 	}
 	
+	//회원가입 - 아이디 중복체크
+	public UserVo selectById(String id) {
+		System.out.println("userDao selectOne()" + id);
+		
+		return sqlSession.selectOne("user.selectById", id);
+	}
 	
 }

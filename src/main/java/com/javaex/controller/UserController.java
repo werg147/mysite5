@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.javaex.dao.UserDao;
 import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
 
@@ -104,7 +104,7 @@ public class UserController {
 	//수정하기
 	@RequestMapping(value = "/update", method= {RequestMethod.GET, RequestMethod.POST})
 	public String update(HttpSession session, @ModelAttribute UserVo userVo) {
-		System.out.println("/usre/update");
+		System.out.println("/user/update");
         //System.out.println(userVo.toString());
 		
 		//세션 no꺼내기
@@ -123,7 +123,18 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	
+	//회원가입 - 아이디 중복체크
+	@ResponseBody
+	@RequestMapping(value = "/idcheck", method= {RequestMethod.GET, RequestMethod.POST})
+	public String idcheck(@RequestParam("id") String id) {
+		System.out.println("/user/idcheck");
+		System.out.println("check: " + id);
+		
+		String result = userService.idcheck(id);
+		System.out.println(result);
+		
+		return result; //@ResponseBody -> response의 body영역에 data만 보낸다. (return값)
+	}
 	
 	
 }

@@ -41,4 +41,22 @@ public class UserService {
 		
 	}
 	
+	//회원가입 - 아이디 중복체크
+	public String idcheck(String id) {
+		System.out.println("userService idcheck()" + id);
+		
+		UserVo userVo = userDao.selectById(id);
+		
+		String result = "";
+		if(userVo==null) {
+			//회원가입 가능
+			result = "can";
+		} else {
+			//회원가입 불가능
+			result = "cant";
+		}
+		
+		return result;
+	}
+	
 }

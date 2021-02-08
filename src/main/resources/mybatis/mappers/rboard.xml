@@ -14,7 +14,7 @@
                    rb.reg_date regDate,
                    rb.group_no groupNo,
                    rb.order_no orderNo,
-                   depth
+                   rb.depth
             from rboard rb, users us
             where rb.user_no = us.no
             order by rb.no desc
@@ -33,7 +33,7 @@
                    rb.user_no userNo,
                    rb.group_no groupNo,
                    rb.order_no orderNo,
-                   depth
+                   rb.depth
             from rboard rb, users us
             where rb.user_no = us.no
             and rb.no = #{no}
@@ -47,6 +47,20 @@
             where no = #{no}
 		]]>
 	</update>
+	
+	<insert id="insert" parameterType="com.javaex.vo.RboardVo">
+		<![CDATA[
+			insert into rboard
+            values(
+                   seq_rboard_no.nextval,
+                   #{title},
+                   #{content},
+                   0,
+                   sysdate,
+                   #{userNo}
+                  )
+		]]>
+	</insert>
 	
 	
 

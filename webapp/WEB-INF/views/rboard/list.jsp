@@ -66,7 +66,7 @@
 									<td>${rboardVo.regDate}</td>
 									<td>
 										<c:if test="${authUser.no == rboardVo.userNo}">
-											<a href="${pageContext.request.contextPath}/board/remove/${rboardVo.no}">[삭제]</a>
+											<a href="${pageContext.request.contextPath}/rboard/remove/${rboardVo.no}">[삭제]</a>
 										</c:if>
 									</td>	
 								</tr>
