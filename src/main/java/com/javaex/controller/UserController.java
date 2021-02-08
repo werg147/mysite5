@@ -126,9 +126,9 @@ public class UserController {
 	//회원가입 - 아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value = "/idcheck", method= {RequestMethod.GET, RequestMethod.POST})
-	public String idcheck(@RequestParam("id") String id) {
+	public String idcheck(@RequestParam("id") String id, @RequestParam("password") String password) {
 		System.out.println("/user/idcheck");
-		System.out.println("check: " + id);
+		System.out.println("check: " + id + password);
 		
 		String result = userService.idcheck(id);
 		System.out.println(result);

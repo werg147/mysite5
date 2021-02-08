@@ -111,8 +111,9 @@
 		
 		//var uid = $("[name='id']").val();
 		var uid = $("#input-uid").val();
-		console.log(uid);
-		console.log("${pageContext.request.contextPath }/user/idcheck?id=" + uid);
+		var pw = $("#input-pass").val();
+		console.log(uid + ", " + pw);
+		console.log("${pageContext.request.contextPath }/user/idcheck?id=" + uid + "&password=" + pw);
 		
 		//ajax 데이터만 받는다
 		$.ajax({
@@ -120,7 +121,7 @@
 			url : "${pageContext.request.contextPath }/user/idcheck",		
 			type : "post",
 			//contentType : "application/json",
-			data : {id:uid}, //url 파라미터값을 만드는 다른 방법
+			data : {id:uid, password:pw}, //url 파라미터값을 만드는 다른 방법 (테스트용으로 pw까지 만듦)
 
 			dataType : "text",
 			success : function(result){
@@ -152,10 +153,9 @@
 			
 			//동의여부 체크준비
 			var check = $("#chk-agree").is(":checked"); //false -> 체크 안했음
-			console.log(check);
 			
 			//패스워드 체크
-			if(pw.lenth < 8){
+			if(pw.length < 8){
 				//패스워드 체크 나머지 alert (패스워드는 8글자 이상이어야 합니다.) -> submit진행되면 안됨
 				alert("패스워드는 8글자 이상입니다.");
 				return false;
