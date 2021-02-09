@@ -37,7 +37,7 @@ public class GuestController {
 	public String insert(@ModelAttribute GuestVo guestVo) {
 		System.out.println("[controller] insert()");
 		 
-		int count = guestService.inert(guestVo);
+		int count = guestService.insert(guestVo);
 		System.out.println(count);
 		System.out.println(guestVo.toString());
 		
@@ -66,6 +66,14 @@ public class GuestController {
 			return "redirect:/guest/deleteForm?no=" + guestVo.getNo() + "&result=fail";
 		}
 		
+	}
+	
+	//ajaxList
+	@RequestMapping(value="/ajaxList", method= {RequestMethod.GET, RequestMethod.POST})
+	public String ajaxList() {
+		System.out.println("[controller] ajaxList()");
+		
+		return "guestbook/ajaxList";
 	}
 	
 }

@@ -22,7 +22,7 @@ public class GuestService {
 	}
 
 	//게시글 등록
-	public int inert(GuestVo guestVo) {
+	public int insert(GuestVo guestVo) {
 		System.out.println("[GuestService] insert()");
 		
 		return guestDao.insert(guestVo);	
@@ -34,6 +34,21 @@ public class GuestService {
 		
 		return guestDao.delete(guestVo);
 		
+	}
+	
+	//ajax 글 저장 -> 저장된 글 리턴
+	public GuestVo writeResultVo(GuestVo guestVo) {
+		//글 저장
+		//int no = guestDao.insertSelectKey(guestVo);
+		System.out.println("service: dao.insertSelectKey()실행전->" + guestVo);
+		
+		guestDao.insertSelectKey(guestVo);
+		
+		System.out.println("service: dao.insertSelectKey()실행후->" + guestVo);
+		int no = guestVo.getNo();
+		
+		//글 1개 가져오기
+		return guestDao.selectOne(no);
 	}
 	
 	

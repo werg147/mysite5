@@ -39,6 +39,23 @@ public class GuestDao {
 		return sqlSession.delete("guest.delete", guestVo);
 	}
 	
+	//글 저장(selectKey)
+	public int insertSelectKey(GuestVo guestVo) {
+		System.out.println("[GuestDao] insertSelectKey()");
+		
+		System.out.println("[Dao]xml실행전->" + guestVo);
+		sqlSession.insert("guest.insertSelectKey", guestVo);
+		System.out.println("[Dao]xml실행후->" + guestVo);
+		
+		return guestVo.getNo();
+	}
+	
+	//글 1개 가져오기
+	public GuestVo selectOne(int no) {
+		System.out.println("[GuestDao] selectOne()");
+		
+		return sqlSession.selectOne("guest.select", no);	
+	}
 	
 	
 }
