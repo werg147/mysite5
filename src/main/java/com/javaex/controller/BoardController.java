@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,37 @@ public class BoardController {
 		
 		return "board/list";
 	}
+	
+	//리스트2(검색기능 추가)
+	@RequestMapping(value="/list2", method= {RequestMethod.GET, RequestMethod.POST})
+	public String list2(@RequestParam(value="keyword", required=false, defaultValue="") String keyword, Model model) {
+		System.out.println("[controller] list2()");
+		System.out.println("keyword= " + keyword);
+		
+		List<BoardVo> boardList = boardService.getList2(keyword);
+		
+		model.addAttribute("boardList", boardList);
+		
+		return "board/list2";
+	}
+	
+	//리스트3 (검색+페이징 기능 추가)
+	@RequestMapping(value="/list3")
+	public String list3(@RequestParam(value="keyword", required=false, defaultValue="") String keyword,
+			            @RequestParam(value="crtPage", required=false, defaultValue="1") int crtPage,
+			            Model model){
+		System.out.println("[controller] list3()");
+		//System.out.println("keyword= " + keyword);
+		//System.out.println("crtPage= " + crtPage);
+		
+		Map<String, Object> pMap = boardService.getList3(keyword, crtPage);
+		System.out.println(pMap);
+		
+		model.addAttribute("pMap", pMap);
+		
+		return "board/list3";
+	}
+	
 	
 	//게시글 삭제
 	@RequestMapping(value="/remove/{no}", method= {RequestMethod.GET, RequestMethod.POST})

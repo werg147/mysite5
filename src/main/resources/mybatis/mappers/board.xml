@@ -17,6 +17,77 @@
             order by bo.no desc
 		]]>
 	</select>
+	
+	<!-- 게시판 리스트2 (검색어) -->
+	<select id="selectList2" parameterType="String" resultType="BoardVo">
+		<![CDATA[
+			select bo.no,
+                   bo.title,
+                   us.name,
+                   bo.hit,
+                   to_char(bo.reg_date, 'YYYY-MM-DD') regDate,
+                   bo.user_no userNo
+            from board bo, users us
+            where bo.user_no = us.no
+        ]]>
+            <if test="  keyword != null and keyword !=''  ">
+            	and title like '%' || #{keyword} || '%'
+            </if>
+       <![CDATA[
+            order by bo.no desc
+		]]>
+	</select>
+	
+	<!-- 게시판 리스트3 (검색+페이징) -->
+	<select id="selectList3" parameterType="String" resultType="BoardVo">
+	
+		<![CDATA[
+			select r.rnum,
+     			   r.no,
+  			       r.title,
+   			       r.hit,
+			       r.regDate,
+			       r.userNo,
+			       r.userName
+			from (select rownum rnum,
+			             o.no,
+			             o.title,
+			             o.hit,
+			             o.regDate,
+			             o.userNo,
+			             o.userName
+			      from (select bo.no,
+			                   bo.title,
+			                   bo.hit,
+			                   to_char(bo.reg_date, 'YYYY-MM-DD') regDate,
+			                   us.name userName,
+			                   us.no userNo
+			            from board bo, users us
+			            where bo.user_no = us.no
+		]]>
+            
+            	   <if test="  keyword != null and keyword !=''  ">
+           			    and title like '%' || #{keyword} || '%'
+           		   </if>
+           		   
+        <![CDATA[   
+			            order by bo.no desc) o) r
+			where r.rnum >= #{startRnum}
+			and r.rnum <= #{endRnum}
+		]]>
+	</select>
+	
+	<!-- 전체 글 갯수 가져오기 -->
+	<select id="selectTotalCnt" parameterType="String" resultType="int">
+		<![CDATA[
+			select count(*)
+			from board bo, users us
+			where bo.user_no = us.no
+		]]>	
+		<if test="  value != null and value !=''  ">
+        	and title like '%' || #{keyword} || '%'
+        </if>
+	</select>
 
 	<!-- 게시글 삭제 -->
 	<delete id="delete" parameterType="int">
