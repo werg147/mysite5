@@ -48,9 +48,10 @@
 			<div id="gallery">
 				<div id="list">
 			
-					
-						<button id="btnImgUpload">이미지올리기</button>
-						<div class="clear"></div>
+						<c:if test="${authUser != null}">
+							<button id="btnImgUpload">이미지올리기</button>
+							<div class="clear"></div>
+						</c:if>
 
 			
 					<ul id="viewArea">
@@ -91,15 +92,16 @@
 					<h4 class="modal-title">이미지등록</h4>
 				</div>
 				
-				<form method="" action="" >
+				<!-- multipart post방식만 허용 -->
+				<form method="post" action="${pageContext.request.contextPath}/gallery/upload" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-text">글작성</label>
-							<input id="addModalContent" type="text" name="" value="" >
+							<input id="addModalContent" type="text" name="content" value="" >
 						</div>
 						<div class="form-group">
 							<label class="form-text">이미지선택</label>
-							<input id="file" type="file" name="" value="" >
+							<input id="file" type="file" name="file" value="" >
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -151,6 +153,12 @@
 
 <script type="text/javascript">
 
+	//등록버튼 모달창
+	$("#btnImgUpload").on("click", function(){
+		console.log("등록버튼 클릭")
+		
+		$("#addModal").modal();
+	});
 
 
 </script>

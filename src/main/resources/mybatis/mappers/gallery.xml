@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gallery">
+
+
+	<!-- 갤러리 게시글 등록하기 -->
+	<insert id="fileInsert" parameterType="com.javaex.vo.GalleryVo">
+		<![CDATA[
+			insert into gallery
+            values(seq_gallery_no.nextval,
+                   #{userNo},
+                   #{content},
+                   #{filePath},
+                   #{orgName},
+                   #{saveName},
+                   #{fileSize}
+            )
+		]]>
+	</insert>
+
+
+
+
+
+
+
+
+
+</mapper>
