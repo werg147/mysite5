@@ -1,7 +1,7 @@
 package com.javaex.vo;
 
 public class GalleryVo {
-	
+
 	private int no;
 	private int userNo;
 	private String content;
@@ -9,11 +9,14 @@ public class GalleryVo {
 	private String orgName;
 	private String saveName;
 	private long fileSize;
-	
-	public GalleryVo() {}
 
-	public GalleryVo(int no, int userNo, String content, String filePath, String orgName, String saveName,
-			int fileSize) {
+	private String name;
+
+	public GalleryVo() {
+	}
+
+	public GalleryVo(int no, int userNo, String content, String filePath, String orgName, String saveName, int fileSize,
+			String name) {
 		super();
 		this.no = no;
 		this.userNo = userNo;
@@ -22,9 +25,8 @@ public class GalleryVo {
 		this.orgName = orgName;
 		this.saveName = saveName;
 		this.fileSize = fileSize;
+		this.name = name;
 	}
-	
-	
 
 	public int getNo() {
 		return no;
@@ -82,11 +84,20 @@ public class GalleryVo {
 		this.fileSize = fileSize;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
 		return "GalleryVo [no=" + no + ", userNo=" + userNo + ", content=" + content + ", filePath=" + filePath
-				+ ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize=" + fileSize + "]";
+				+ ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize=" + fileSize + ", name=" + name + "]";
 	}
+
 	
 
 }

@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,12 @@ public class GalleryService {
 	GalleryDao galleryDao;
 
 	//리스트 출력
+	public List<GalleryVo> list() {
+		System.out.println("[GalleryService] list()");
+
+		return galleryDao.selectList();
+	}
+	
 	
 	//갤러리 게시글 등록
 	public void upload(GalleryVo galleryVo, MultipartFile file) {
@@ -68,8 +75,7 @@ public class GalleryService {
 		galleryVo.setSaveName(saveName);
 		galleryVo.setFileSize(fileSize);
 		
-		System.out.println(galleryVo);
-		//galleryDao.insert(galleryVo);
+		galleryDao.insert(galleryVo);
 		
 	}
 	

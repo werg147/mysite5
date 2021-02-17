@@ -1,5 +1,7 @@
 package com.javaex.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,13 +15,21 @@ public class GalleryDao {
 	SqlSession sqlSession;
 	
 	//리스트
-	
+	public List<GalleryVo> selectList() {
+		System.out.println("[GalleryDao] selectList()");
+		
+		//List<GalleryVo> galleryList = sqlSession.selectList("gallery.selectList");
+		//System.out.println("db저장후 다오:" + galleryList.toString());
+		return sqlSession.selectList("gallery.selectList");
+		
+	}
 	
 	//등록
-	public void insert(GalleryVo galleryVo) {
+	public int insert(GalleryVo galleryVo) {
 		System.out.println("[GalleryDao] insert()");
+		System.out.println("Dao: " + galleryVo);
 		
-		sqlSession.insert("gallery.fileInsert", galleryVo);
+		return sqlSession.insert("gallery.fileInsert", galleryVo);
 	}
 	
 	

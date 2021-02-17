@@ -4,6 +4,23 @@
 <mapper namespace="gallery">
 
 
+	<!-- 갤러리 리스트 -->
+	<select id="selectList" resultType="com.javaex.vo.GalleryVo">
+		<![CDATA[
+			select ga.no,
+                   ga.user_no userNo,
+                   ga.content,
+                   ga.filePath,
+                   ga.orgName,
+                   ga.saveName,
+                   ga.fileSize,
+                   us.name
+            from gallery ga, users us
+            where ga.user_no = us.no
+            order by ga.no desc
+		]]>
+	</select>
+
 	<!-- 갤러리 게시글 등록하기 -->
 	<insert id="fileInsert" parameterType="com.javaex.vo.GalleryVo">
 		<![CDATA[
