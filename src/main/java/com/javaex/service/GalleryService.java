@@ -89,4 +89,13 @@ public class GalleryService {
 	}
 	
 	
+	//게시글 삭제 (no)
+	public int remove(int no) {
+		System.out.println("[GalleryService] remove()");
+		System.out.println("서비스 삭제:" + no);
+		
+		return galleryDao.delete(no);
+	}
+	
+	
 }

@@ -64,9 +64,21 @@ public class GalleryController {
 		System.out.println(no);
 		
 		GalleryVo galleryVo = galleryService.read(no);
-		System.out.println("컨트롤러: " + galleryVo);
+		//System.out.println("컨트롤러: " + galleryVo);
 		
 		return galleryVo;
+	}
+	
+	//게시글 삭제
+	@ResponseBody
+	@RequestMapping(value="/remove", method= {RequestMethod.GET, RequestMethod.POST})
+	public int remove(@RequestParam("no") int no) {
+		System.out.println("[GalleryController] remove()");
+		
+		int count = galleryService.remove(no);
+		System.out.println(count);
+		
+		return count;
 	}
 	
 }

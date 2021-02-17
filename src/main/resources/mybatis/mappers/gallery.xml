@@ -53,7 +53,13 @@
 		]]>
 	</select>
 
-
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete from gallery
+            where no = #{no}
+		]]>
+	</delete>
 
 
 

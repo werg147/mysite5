@@ -58,7 +58,7 @@
 						
 						<!-- 이미지반복영역 -->
 						<c:forEach items="${galleryList}" var="galleryVo">
-							<li data-no="${galleryVo.no}">
+							<li id="areaDel" data-no="${galleryVo.no}" data-userNo="${galleryVo.userNo}">
 								<div class="view" >
 									<img class="imgItem" src="${pageContext.request.contextPath}/upload/${galleryVo.saveName}">
 									<div class="imgWriter">작성자: <strong>${galleryVo.name}</strong></div>
@@ -136,16 +136,21 @@
 						<p id="viewModelContent"></p>
 					</div>
 					
-					<input id="modalNo" type="text" name="no" value="">
+					<input id="modalNo" type="hidden" name="no" value="">
+					<input id="userNo" type="text" name="userNo" value="">
 					
 				</div>
-				<form method="" action="">
+				
+				<form method="post" action="${pageContext.request.contextPath}/gallery/remove">
+				
 					<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
-				</div>
-				
-				
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
+						
+						<input type="hidden" name="userNo" value="${galleryVo.userNo}">
+					
+					</div>
+							
 				</form>
 				
 			</div><!-- /.modal-content -->
@@ -169,12 +174,12 @@
 	$("#viewArea").on("click", "li", function(){
 		console.log("읽기버튼 클릭");
 		
-		//모달창 비밀번호, no수집
+		//모달창 no 수집
 		var no = $(this).data("no");
 		console.log(no);
 		
 		$("#modalNo").val(no);
-		
+
 		
 		$.ajax({
 			
@@ -188,6 +193,7 @@
 				/*성공시 처리해야될 코드 작성*/
 				//console.log(galleryVo.content);
 				
+				//attr() 속성값 변경
 				$("#viewModelImg").attr("src", "${pageContext.request.contextPath}/upload/" + galleryVo.saveName);
 				$("#viewModelContent").text(galleryVo.content); //html
 				
@@ -199,6 +205,45 @@
 
 		
 		$("#viewModal").modal();
+	});
+	
+	
+	//삭제버튼 클릭  undefind.. userNo수집 어려움> 일단 no만으로 삭제
+	$("#btnDel").on("click", function(){
+		console.log("삭제버튼 클릭");
+		
+		var no = $("#modalNo").val();
+		console.log(no);
+		
+		
+        $.ajax({
+			
+			url : "${pageContext.request.contextPath}/gallery/remove",		
+			type : "post",
+			//contentType : "application/json",
+			data : {no: no},
+
+			dataType : "json",
+			success : function(count){
+				/*성공시 처리해야될 코드 작성*/
+
+				if(count == 1){
+					//모달창 닫기
+					$("#viewModal").modal("hide");
+					
+					//목록에서 삭제  #viewArea로 하면 전체가 지워진것처럼 보임 > 삭제할 게시글만 선택
+					$("#areaDel").remove();
+
+				} else {
+					$("#viewModal").modal("hide");
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+		
+		
 	});
 
 </script>

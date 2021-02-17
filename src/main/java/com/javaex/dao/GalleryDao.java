@@ -41,5 +41,11 @@ public class GalleryDao {
 	}
 	
 	
+	//게시글 삭제
+	public int delete(int no) {
+		System.out.println("[GalleruDao] delete()");
+		
+		return sqlSession.delete("gallery.delete", no);
+	}
 	
 }
