@@ -36,9 +36,22 @@
 		]]>
 	</insert>
 
-
-
-
+	<!-- 게시글 한개 가져오기 -->
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.GalleryVo">
+		<![CDATA[
+			select ga.no,
+                   ga.user_no userNo,
+                   ga.content,
+                   ga.filePath,
+                   ga.orgName,
+                   ga.saveName,
+                   ga.fileSize,
+                   us.name
+            from gallery ga, users us
+            where ga.user_no = us.no
+            and ga.no = #{no}
+		]]>
+	</select>
 
 
 

@@ -33,4 +33,13 @@ public class GalleryDao {
 	}
 	
 	
+	//게시글 한개
+	public GalleryVo selectOne(int no) {
+		System.out.println("[GalleryDao] selectOne()");
+		
+		return sqlSession.selectOne("gallery.selectOne", no);	
+	}
+	
+	
+	
 }

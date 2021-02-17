@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.GalleryService;
@@ -31,10 +32,10 @@ public class GalleryController {
 		
 		galleryService.list();
 		List<GalleryVo> galleryList = galleryService.list();
-		System.out.println("컨트롤러" + galleryList.toString());
+		//System.out.println("컨트롤러" + galleryList.toString());
 		
 		model.addAttribute("galleryList", galleryList);
-		System.out.println("모델에담고" + galleryList.toString());
+		//System.out.println("모델에담고" + galleryList.toString());
 		
 		return "/gallery/list";
 	}
@@ -55,5 +56,17 @@ public class GalleryController {
 		return "redirect:/gallery/list";
 	}
 	
+	//게시글 한개 가져오기
+	@ResponseBody     //꼭 !! 추가하는거 잊지않기 (콘솔창 404에러 -> 데이터 받지못함)
+	@RequestMapping(value="/read", method= {RequestMethod.GET, RequestMethod.POST})
+	public GalleryVo read(@RequestParam("no") int no) {
+		System.out.println("[GalleryController] read()");
+		System.out.println(no);
+		
+		GalleryVo galleryVo = galleryService.read(no);
+		System.out.println("컨트롤러: " + galleryVo);
+		
+		return galleryVo;
+	}
 	
 }

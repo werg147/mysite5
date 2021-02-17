@@ -80,4 +80,13 @@ public class GalleryService {
 	}
 	
 	
+	//게시글 한개 가져오기
+	public GalleryVo read(int no) {
+		System.out.println("[GalleryService] read()");
+		System.out.println("서비스: " + no);
+		
+		return galleryDao.selectOne(no);
+	}
+	
+	
 }

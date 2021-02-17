@@ -58,7 +58,7 @@
 						
 						<!-- 이미지반복영역 -->
 						<c:forEach items="${galleryList}" var="galleryVo">
-							<li>
+							<li data-no="${galleryVo.no}">
 								<div class="view" >
 									<img class="imgItem" src="${pageContext.request.contextPath}/upload/${galleryVo.saveName}">
 									<div class="imgWriter">작성자: <strong>${galleryVo.name}</strong></div>
@@ -136,6 +136,8 @@
 						<p id="viewModelContent"></p>
 					</div>
 					
+					<input id="modalNo" type="text" name="no" value="">
+					
 				</div>
 				<form method="" action="">
 					<div class="modal-footer">
@@ -162,6 +164,42 @@
 		$("#addModal").modal();
 	});
 
+	
+	//게시글 읽기 모달창
+	$("#viewArea").on("click", "li", function(){
+		console.log("읽기버튼 클릭");
+		
+		//모달창 비밀번호, no수집
+		var no = $(this).data("no");
+		console.log(no);
+		
+		$("#modalNo").val(no);
+		
+		
+		$.ajax({
+			
+			url : "${pageContext.request.contextPath}/gallery/read",		
+			type : "post",
+			//contentType : "application/json",
+			data : {no: no},
+
+			dataType : "json",
+			success : function(galleryVo){
+				/*성공시 처리해야될 코드 작성*/
+				//console.log(galleryVo.content);
+				
+				$("#viewModelImg").attr("src", "${pageContext.request.contextPath}/upload/" + galleryVo.saveName);
+				$("#viewModelContent").text(galleryVo.content); //html
+				
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+
+		
+		$("#viewModal").modal();
+	});
 
 </script>
 
